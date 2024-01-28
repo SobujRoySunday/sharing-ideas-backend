@@ -7,10 +7,14 @@ const fs = require("fs");
 require("dotenv").config();
 
 app.use(
-  cors({ credentials: true, origin: "https://sharing-ideas.glitch.me:3000" })
+  cors({ credentials: true, origin: "https://sharing-ideas.vercel.app" })
 );
 app.use(express.json());
 app.use("/uploads", express.static(__dirname + "/uploads"));
+
+app.get("/", (req, res) => {
+  res.json({ success: "ok" });
+});
 
 app.post("/uploadfile", uploadMiddleware.single("file"), async (req, res) => {
   const { originalname, path } = req.file;
